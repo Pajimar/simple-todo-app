@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--font awsome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>TODO-APP</title>
+</head>
+<body>
+
+    <div class="container">
+        <header class="title">
+            <h2>Todo List</h2>
+        </header>
+
+        <form class="user-form" id="form">
+            <input type="text" id="search" placeholder="Search Todos ... ">
+        </form>
+
+        <div class="todos">
+            <ul class="todo_list"> <!--clase para poder referenciar la lista luego, no tiene estilos-->
+                <li class="list-item">
+                    <span>play mariokart</span>
+                    <i class="far fa-trash-alt delete"></i> <!-- clase delete para poder referenciar estos iconos-->
+                </li>
+                <li class="list-item">
+                    <span>play mariokart</span>
+                    <i class="far fa-trash-alt delete"></i>
+                </li>
+                <li class="list-item">
+                    <span>play mariokart</span>
+                    <i class="far fa-trash-alt delete"></i>
+                </li>
+            </ul>
+        </div>
+
+
+        <form class="user-form" id="addform">
+            <p>Add a new todo...</p>
+            <input type="text" id="addtodo" placeholder="">
+        </form>
+    </div>
+
+     
+
+    <!--date fns 
+    <script src="http://cdn.date-fns.org/v2.16.1/date_fns.min.js"></script>
+    -->
+    <script src="script.js"></script>
+</body>
+</html>
