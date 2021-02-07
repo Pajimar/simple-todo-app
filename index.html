@@ -21,18 +21,7 @@
 
         <div class="todos">
             <ul class="todo_list"> <!--clase para poder referenciar la lista luego, no tiene estilos-->
-                <li class="list-item">
-                    <span>play mariokart</span>
-                    <i class="far fa-trash-alt delete"></i> <!-- clase delete para poder referenciar estos iconos-->
-                </li>
-                <li class="list-item">
-                    <span>play mariokart</span>
-                    <i class="far fa-trash-alt delete"></i>
-                </li>
-                <li class="list-item">
-                    <span>play mariokart</span>
-                    <i class="far fa-trash-alt delete"></i>
-                </li>
+                
             </ul>
         </div>
 
@@ -43,7 +32,26 @@
         </form>
     </div>
 
-     
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCIc6o3XPbWTm6T8e3NnH7hGcGYEccG0C4",
+            authDomain: "todos-a494b.firebaseapp.com",
+            projectId: "todos-a494b",
+            storageBucket: "todos-a494b.appspot.com",
+            messagingSenderId: "1089895443217",
+            appId: "1:1089895443217:web:1910e7c5f794e24e457ab0"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        // db connection
+        const db = firebase.firestore()
+    </script>
 
     <!--date fns 
     <script src="http://cdn.date-fns.org/v2.16.1/date_fns.min.js"></script>

@@ -7,45 +7,62 @@ const todo_list = document.querySelector('.todo_list');
 el que genera el evento keyup*/
 const search = document.getElementById('search');
 
-
-const insertTodo = (todo) => {
-
+// añadir elemento a la UI
+const addTodoUI = (doc) => {
     const list_item_template = `
-        <li class="list-item">
-            <span>${todo}</span>
+        <li class="list-item" id=${doc.id}>
+            <span>${doc.data().text}</span>
             <i class="far fa-trash-alt delete"></i>
         </li>
     `;
 
     // inyectar plantilla en lista
     todo_list.innerHTML += list_item_template;
-    
-    
+}
+
+// eliminar elemento de la UI 
+const removeTodoUI = (doc) => {
+    // iterar por la lista de Todos del DOM buscando el elemento que tiene como atributo id = doc.id
+    const todos = document.querySelectorAll('li')
+    todos.forEach(todo => {
+        if (todo.getAttribute('id') === doc.id){
+            todo.remove()
+        }
+    })
 }
 
 
-/*cuando ocurra evento submit en el formulario, ejecutar funcion anonima 
-que recibe como parametro (y que usa el evento generado)*/
+// añadir ToDo a la BD
 addForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const todo = addForm.addtodo.value.trim();
         
     if(todo.length){
-        insertTodo(todo.toLowerCase());
+        // si se ha escrito algo, crear objeto
+        todoObject = {
+            text : todo
+        }
+        db.collection('todos').add(todoObject).then(() => {
+            console.log('ToDo añadido')
+        })
         addForm.reset();
     }
     
 });
 
-/*registrar la lista ul en el evento click*/
+// eliminar ToDo de la BD
 todo_list.addEventListener('click', (e) => {
     // comprobar si el elemento que generó el evento contiene 'delete' entre sus clases
     // (es decir, es icono trash)
     if(e.target.classList.contains('delete')){
-        e.target.parentElement.remove();
+        const id = e.target.parentElement.getAttribute('id')
+        db.collection('todos').doc(id).delete().then(() => {
+            console.log('ToDo eliminado')
+        })
     }
 })
 
+// hacer busquedas sobre los ToDos de la interfaz
 const filterTodos = (data) => {
     /*buscar elementos que no hacen match para añadir clase hideTodo */
     list_items = Array.from(todo_list.children);
@@ -71,10 +88,16 @@ search.addEventListener('keyup', () => {
 })
 
 
-
-const request = new XMLHttpRequest();
-request.open('GET', 'https://jsonplaceholder.typicode.com/posts/');
-request.send();
-
+// listener for snapshot events on firestore DB
+db.collection('todos').onSnapshot( snapshot => {
+    const changes = snapshot.docChanges()
+    changes.forEach(change  => {
+        if(change.type === "added"){
+            addTodoUI(change.doc)
+        }else if(change.type === "removed"){
+            removeTodoUI(change.doc)
+        }
+    })
+})
 
 
